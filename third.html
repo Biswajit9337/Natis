@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NATIS Score Card</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+
+    .container {
+      background: white;
+      width: 90%;
+      max-width: 800px;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #ff5733;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 1.2em;
+      display: block;
+    }
+
+    input {
+      font-size: 1.2em;
+      padding: 10px;
+      width: 60%;
+      margin-top: 10px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .scoreboard {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    .column {
+      width: 45%;
+    }
+
+    .column span {
+      display: block;
+      margin-top: 20px;
+      font-size: 1.5em;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 1.2em;
+      margin-top: 20px;
+      background-color: #ff5733;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff4500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>NATIS Score Card</h1>
+    <div id="winningPoints" class="input-group">
+      <label for="points">Enter Winning Points:</label>
+      <input type="number" id="points" value="50">
+    </div>
+
+    <div id="teams">
+      <!-- Dynamic team columns will be here -->
+    </div>
+
+    <div class="scoreboard">
+      <div id="teamA" class="column">
+        <span id="teamAName">Team A</span>
+        <span id="teamAResult">Score: 0</span>
+      </div>
+      <div id="teamB" class="column">
+        <span id="teamBName">Team B</span>
+        <span id="teamBResult">Score: 0</span>
+      </div>
+    </div>
+
+    <button onclick="startBid()">Bid</button>
+    <button onclick="startResult()" style="display:none;">Result</button>
+  </div>
+
+  <script>
+    let gameData = JSON.parse(sessionStorage.getItem('gameData'));
+    let currentRound = 1;
+    let winningPoints = parseInt(document.getElementById('points').value);
+    let scores = { A: 0, B: 0 };
+
+    window.onload = function() {
+      const teamsDiv = document.getElementById('teams');
+      if (gameData.type === 'team') {
+        document.getElementById('teamAName').textContent = gameData.names[0] || 'Team A';
+        document.getElementById('teamBName').textContent = gameData.names[1] || 'Team B';
+      }
+
+      // Dynamic button change based on rounds
+      if (currentRound > 1) {
+        document.querySelector('button').textContent = 'Bid';
+      }
+    }
+
+    function startBid() {
+      // Placeholder for Bid input functionality
+      alert("Bid entered for round " + currentRound);
+      currentRound++;
+    }
+
+    function startResult() {
+      // Placeholder for Result input functionality
+      alert("Result entered for round " + currentRound);
+    }
+  </script>
+</body>
+</html>

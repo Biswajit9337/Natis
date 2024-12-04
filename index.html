@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NATIS Scoring Counter</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="button-container">
+      <button class="game-button new-game" onclick="startNewGame()">New Game</button>
+      <button class="game-button saved-game" onclick="playSoundAndSpeak('Saved Game')">Saved Game</button>
+      <button class="game-button game-history" onclick="playSoundAndSpeak('Game History')">Game History</button>
+      <button class="footer-button game-rules" onclick="playSoundAndSpeak('Game Rules')">Game Rules</button>
+      <button class="footer-button faq" onclick="playSoundAndSpeak('FAQ')">FAQ</button>
+      <button class="footer-button about-us" onclick="playSoundAndSpeak('About Us')">About Us</button>
+    </div>
+  </div>
+  <audio id="clickSound" src="click-sound.mp3"></audio>
+  <script src="script.js"></script>
+  <script>
+    // Function to play sound and speak the button name
+    function playSoundAndSpeak(buttonName) {
+      const audio = document.getElementById('clickSound');
+      audio.currentTime = 0;
+      audio.play();
+
+      if ('speechSynthesis' in window) {
+        const speech = new SpeechSynthesisUtterance(buttonName);
+        speech.lang = 'en-US';
+        speech.rate = 1;
+        window.speechSynthesis.speak(speech);
+      } else {
+        alert('Text-to-Speech is not supported in your browser. Please use audio files instead.');
+      }
+    }
+
+    // Redirect to second page when "New Game" is clicked, after speech
+    function startNewGame() {
+      const audio = document.getElementById('clickSound');
+      audio.currentTime = 0;
+      audio.play();
+
+      const speech = new SpeechSynthesisUtterance('New Game');
+      speech.lang = 'en-US';
+      speech.rate = 1;
+
+      speech.onend = function () {
+        window.location.href = "second.html";
+      };
+
+      window.speechSynthesis.speak(speech);
+    }
+  </script>
+</body>
+</html>

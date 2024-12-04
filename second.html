@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Teams or Players</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: url('cards-background2.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      width: 90%;
+      max-width: 600px;
+      padding: 30px;
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      margin-top: 50px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #ff5733;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .option-buttons {
+      margin: 30px 0;
+    }
+
+    button {
+      width: 80%;
+      padding: 15px;
+      margin-top: 20px;
+      font-size: 1.3em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: linear-gradient(145deg, #33c1ff, #1e90ff);
+      color: white;
+      transition: transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    button:hover {
+      filter: brightness(1.1);
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    .selection-form {
+      margin: 20px 0;
+      display: none;
+    }
+
+    .input-group {
+      margin: 10px 0;
+    }
+
+    label {
+      font-size: 1.2em;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: none;
+      background: #ffffff;
+      color: #000;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+
+    .start-game {
+      margin-top: 20px;
+      background: linear-gradient(145deg, #ff5733, #ff4500);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Select Game Type</h1>
+    <div class="option-buttons">
+      <button onclick="showTeamForm()">Team Play</button>
+      <button onclick="showPlayerForm()">Individual Players</button>
+    </div>
+
+    <!-- Team Selection Form -->
+    <div id="teamForm" class="selection-form">
+      <h2>Team Selection</h2>
+      <div class="input-group">
+        <label for="teamA">Team A Name:</label>
+        <input type="text" id="teamA" placeholder="Enter Team A Name" value="Team A">
+      </div>
+      <div class="input-group">
+        <label for="teamB">Team B Name:</label>
+        <input type="text" id="teamB" placeholder="Enter Team B Name" value="Team B">
+      </div>
+      <div id="additionalTeams"></div>
+      <button onclick="addTeam()">Add Team</button>
+    </div>
+
+    <!-- Player Selection Form -->
+    <div id="playerForm" class="selection-form">
+      <h2>Player Selection</h2>
+      <div class="input-group">
+        <label for="player1">Player 1 Name:</label>
+        <input type="text" id="player1" placeholder="Enter Player 1 Name" value="Player 1">
+      </div>
+      <div class="input-group">
+        <label for="player2">Player 2 Name:</label>
+        <input type="text" id="player2" placeholder="Enter Player 2 Name" value="Player 2">
+      </div>
+      <div id="additionalPlayers"></div>
+      <button onclick="addPlayer()">Add Player</button>
+    </div>
+
+    <!-- Start Game Button -->
+    <button class="start-game" onclick="startGame()">Start Game</button>
+  </div>
+
+  <script>
+    let teamCount = 2;
+    let playerCount = 2;
+
+    // Show Team Selection Form
+    function showTeamForm() {
+      document.getElementById('teamForm').style.display = 'block';
+      document.getElementById('playerForm').style.display = 'none';
+    }
+
+    // Show Player Selection Form
+    function showPlayerForm() {
+      document.getElementById('playerForm').style.display = 'block';
+      document.getElementById('teamForm').style.display = 'none';
+    }
+
+    // Add a new team (max 3)
+    function addTeam() {
+      if (teamCount >= 3) {
+        alert("Maximum of 3 teams allowed.");
+        return;
+      }
+      teamCount++;
+      const teamDiv = document.createElement('div');
+      teamDiv.className = 'input-group';
+      teamDiv.innerHTML = `
+        <label for="team${teamCount}">Team ${teamCount} Name:</label>
+        <input type="text" id="team${teamCount}" placeholder="Enter Team ${teamCount} Name" value="Team ${teamCount}">
+      `;
+      document.getElementById('additionalTeams').appendChild(teamDiv);
+    }
+
+    // Add a new player (max 4)
+    function addPlayer() {
+      if (playerCount >= 4) {
+        alert("Maximum of 4 players allowed.");
+        return;
+      }
+      playerCount++;
+      const playerDiv = document.createElement('div');
+      playerDiv.className = 'input-group';
+      playerDiv.innerHTML = `
+        <label for="player${playerCount}">Player ${playerCount} Name:</label>
+        <input type="text" id="player${playerCount}" placeholder="Enter Player ${playerCount} Name" value="Player ${playerCount}">
+      `;
+      document.getElementById('additionalPlayers').appendChild(playerDiv);
+    }
+
+    // Start Game
+    function startGame() {
+      const teamOrPlayer = document.getElementById('teamForm').style.display === 'block' ? 'team' : 'player';
+
+      let data = {};
+      if (teamOrPlayer === 'team') {
+        data.type = 'team';
+        data.names = Array.from({ length: teamCount }, (_, i) =>
+          document.getElementById(`team${i + 1}`).value.trim()
+        );
+      } else {
+        data.type = 'player';
+        data.names = Array.from({ length: playerCount }, (_, i) =>
+          document.getElementById(`player${i + 1}`).value.trim()
+        );
+      }
+
+      sessionStorage.setItem('gameData', JSON.stringify(data));
+      window.location.href = "third.html"; // Replace with the actual gameplay page
+    }
+  </script>
+</body>
+</html>

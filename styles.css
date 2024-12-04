@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: url('cards-background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  padding: 20px 0;
+}
+
+.button-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 18px;
+  margin-top: 285px;
+}
+
+.game-button, .footer-button {
+  width: 100%;
+  padding: 20px;
+  font-size: 1.4em;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
+  color: rgb(0, 0, 0);
+  transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
+}
+
+.game-button:active, .footer-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.game-button:hover, .footer-button:hover {
+  filter: brightness(1.1);
+}
+
+/* Unique Button Colors */
+.new-game {
+  background-color: #ff7433;
+  border: 2px solid #df3d03;
+}
+
+.saved-game {
+  background-color: #11d8fc;
+  border: 2px solid #009da8;
+}
+
+.game-history {
+  background-color: #b619ff;
+  border: 2px solid #8601f3;
+
+}
+
+.faq {
+  background-color: #fd1a93;
+  border: 2px solid #e9014e;
+}
+
+.about-us {
+  background-color: #33ff57;
+  border: 2px solid #228b23;
+}
+
+.game-rules {
+  background-color: #e5ff00; /* Bright Green */
+  border: 2px solid #bac700; /* Dark Green Border */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
+}
+
+.game-rules:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.game-rules:hover {
+  filter: brightness(1.1);
+}
